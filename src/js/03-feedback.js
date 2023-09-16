@@ -8,35 +8,35 @@ formEl.addEventListener("submit", onSubmit);
 const input = formEl.email;
 const texteria = formEl.message;
 const STORAGE_KEY = 'feedback-form-state';
+let formElements = {};
 dataLocalStorage();
 
 function onInputData(event) {
-const userData = {
-  email: input.value.trim(),
-  message: texteria.value.trim(),
-}
+// const userData = {
+//   email: input.value.trim(),
+//   message: texteria.value.trim(),
+// }
 
-localStorage.setItem('STORAGE_KEY', JSON.stringify(userData));
+formElements[event.target.name] = event.target.value
+localStorage.setItem('STORAGE_KEY', JSON.stringify(formElements));
 
 };
 
 function onSubmit(event) {
   event.preventDefault();
   const { email, message } = event.currentTarget.elements;
-  dataForm = {
+ const dataForm = {
         email: email.value,
         message: message.value,
     };
-
   if (email.value === '' || message.value === '') {
    alert(`Please fill in all the fields!`);
- return dataForm = {};
+ return formEl;
   }
   
   console.log(dataForm);
   localStorage.removeItem('STORAGE_KEY');
-  // event.currentTarget.reset();
-  formEl.reset();
+   formEl.reset();
 
 }
 
